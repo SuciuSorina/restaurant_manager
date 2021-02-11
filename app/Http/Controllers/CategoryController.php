@@ -33,7 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories/create');
     }
 
     /**
@@ -44,7 +44,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:categories',
+        ]);
+        $inputs = $request->all();
+        $category = $this->category->create($inputs);
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -66,7 +72,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $category = $this->category->find($id);
+
+        return view('categories/edit')->withCategory($category);
+
     }
 
     /**
@@ -77,8 +87,25 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    { 
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+        $inputs= $request->all();
+        // dd($inputs['name']);
+        $checkIfExist= $this->category->where('id','!=', $id)->where('name',$inputs['name'])->exists();
+        
+        if ($checkIfExist) {
+            return back()->with("categoryExists", "Your category name already exists.");
+        }
+
+        $category= $this->category->find($id);
+
+        // dd($category);
+        $category->update($inputs);
+        // dd($inputs);/
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -89,6 +116,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category= $this->category->find($id);
+        // dd($category);
+        $category->delete();
+
+        return redirect()->route('categories.index');
     }
 }
