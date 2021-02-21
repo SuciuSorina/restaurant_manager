@@ -17,8 +17,8 @@
       <li class="nav-item {{ (\Request::path() == 'customers') ? 'active' : '' }}">
         <a class="nav-link" href="{{ url('customers') }}" >Customer</a>
       </li>
-      <li class="nav-item">
-        @if(Auth::user())   
+      @if(Auth::user())   
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"
               onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
@@ -27,8 +27,15 @@
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf
           </form>
-        @endif
-      </li>
+        </li>
+      @else 
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+        </li>
+      @endif
     </ul>
   </div>
 </nav>
