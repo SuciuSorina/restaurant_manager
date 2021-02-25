@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Route::resource('categories', 'CategoryController');
 Route::resource('products', 'ProductController');
+Route::resource('orders', 'OrdertController');
+
+Route::post('/add-order-items', 'OrderController@addOrderParts');
 
 Auth::routes();
 

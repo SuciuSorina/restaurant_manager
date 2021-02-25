@@ -16,6 +16,13 @@
                     <th  class="text-center align-middle">{{$product->id}}</th>
                     <td  class="text-center align-middle">{{$product->name}}</td>
                     <td colspan="2" class="text-center align-middle">
+                        <form action="/add-order-items" method="post">
+                            @csrf
+                            <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
+                            <button type="submit" class="btn btn-success">
+                                Add to cart
+                            </button>
+                        </form>
                         {{-- <a type="button" href="{{ route(('categories.edit'), $category->id) }}" class="btn btn-primary">Edit</a> --}}
         
                         {{-- @include('categories.delete', compact('author') ) --}}
