@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::resource('categories', 'CategoryController');
 Route::resource('products', 'ProductController');
-Route::resource('orders', 'OrdertController');
+Route::resource('orders', 'OrderController');
 
 Route::post('/add-order-items', 'OrderController@addOrderParts');
 
