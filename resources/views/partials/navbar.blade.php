@@ -11,11 +11,8 @@
       <li class="nav-item {{ (\Request::path() == 'categories') ? 'active' : '' }} ">
         <a class="nav-link"  href="{{ url('categories') }}">Categories</a>
       </li>
-      <li class="nav-item {{ (\Request::path() == 'books') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ url('books') }}">Books</a>
-      </li>
       <li class="nav-item {{ (\Request::path() == 'customers') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ url('customers') }}" >Customer</a>
+        <a class="nav-link" href="{{ url('customers') }}" >Customers</a>
       </li>
       @if(Auth::user())   
         <li class="nav-item">
@@ -36,6 +33,11 @@
           <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
         </li>
       @endif
+    </ul>
+    <ul class="navbar-nav  ml-auto">
+      <li class=" nav-item {{ (\Request::path() == 'order-items') ? 'active' : '' }}">
+        <a class="btn btn-danger" href="{{ url('order-items') }}" ><span class="oi oi-cart"></span>My Cart</a>
+      </li>
     </ul>
   </div>
 </nav>

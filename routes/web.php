@@ -20,8 +20,10 @@ Route::get('/', function () {
 Route::resource('categories', 'CategoryController');
 Route::resource('products', 'ProductController');
 Route::resource('orders', 'OrderController');
-
+Route::get('/order-items', 'OrderController@getOrderParts');
 Route::post('/add-order-items', 'OrderController@addOrderParts');
+
+Route::get('/customers', 'UserController@getCustomers');
 
 Auth::routes();
 

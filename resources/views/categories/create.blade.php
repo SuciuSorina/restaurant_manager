@@ -10,20 +10,24 @@
                     </ul>
             </div>
     @endif
-    <h1 style="font-size: xx-large; font-weight: inherit;" class="mb-3">Create category</h1>
-    <form action="/categories" method="post">
-            @csrf
-            <div class="row">
-                <div class="col">
+    <div style="display: flex; justify-content: center;">
+        <div class="col-md-2"></div>
+        <div class="card col-md-8">
+            <h1 style="font-size: xx-large; font-weight: inherit;" class="mb-3 pt-3">Create category</h1>
+            <form action="/categories" method="post">
+                @csrf
+                <div class="form-group">
                     <input type="text" name="name" class="form-control" placeholder="Category name">
                 </div>
-                <div class="col">
+                <div class="form-group">
                     <button type="submit" class="btn btn-success">
                         Create
                     </button>
                     <a href="{{route('categories.index')}}" style="color:white;" type="button" class="btn btn-warning">Back </a>
                 </div>
-            </div>
-    </form>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 
 @endsection

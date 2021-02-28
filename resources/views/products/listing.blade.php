@@ -19,18 +19,19 @@
                     <th  class="text-center align-middle">{{$product->id}}</th>
                     <td  class="text-center align-middle">{{$product->name}}</td>
                     <td  class="text-center align-middle">{{$product->category->name}}</td>
-                    <td colspan="2" class="text-center align-middle">
-                        <form action="/add-order-items" method="post">
-                            @csrf
-                            <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
-                            <button type="submit" class="btn btn-success">
-                                Add to cart
-                            </button>
+                    <td  class="text-center align-middle">
+                        <div style="display:inline-flex">
+                            <form action="/add-order-items" method="post" class="mr-2">
+                                @csrf
+                                <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
+                                <button type="submit" class="btn btn-success">
+                                    Add to cart
+                                </button>
 
-                        </form>
+                            </form>
 
-                        <a type="button" href="{{ route(('products.edit'), $product->id) }}" class="btn btn-primary">Edit</a>
-
+                            <a type="button" href="{{ route(('products.edit'), $product->id) }}" class="btn btn-primary">Edit</a>
+                        </div>
                         {{-- <a type="button" href="{{ route(('categories.edit'), $category->id) }}" class="btn btn-primary">Edit</a> --}}
 
                         {{-- @include('categories.delete', compact('author') ) --}}

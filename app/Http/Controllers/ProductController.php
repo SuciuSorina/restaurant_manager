@@ -18,7 +18,6 @@ class ProductController extends Controller
         $products = Product::getAll();
 
         return view('products/listing')->withProducts($products);
-        // dd($products);
     }
 
     /**
@@ -44,7 +43,6 @@ class ProductController extends Controller
             'name' => 'required|unique:products',
         ]);
         $inputs = $request->all();
-        //dd($inputs);
         $category = Product::create($inputs);
 
         return redirect()->route('products.index');
@@ -90,7 +88,6 @@ class ProductController extends Controller
             'name' => 'required',
         ]);
         $inputs= $request->all();
-         //dd($inputs);
         $checkIfExist= Product::where('id','!=', $id)->where('name',$inputs['name'])->exists();
 
         if ($checkIfExist) {
@@ -98,10 +95,7 @@ class ProductController extends Controller
         }
 
         $product = Product::find($id);
-
-        // dd($category);
         $product->update($inputs);
-         //dd($product);
 
         return redirect()->route('products.index');
     }
