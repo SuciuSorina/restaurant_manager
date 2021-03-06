@@ -23,7 +23,6 @@ class CategoryController extends Controller
         $categories = $this->category->getAll();
         // dd($this->category->getAll());
         return view('categories/listing')->withCategories($categories);
-        //dd('Afisare');
     }
 
     /**

@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderPart;
+use App\Product;
 use Illuminate\Http\Request;
 use Auth;
 
 class OrderController extends Controller
 {
-    public function __construct( Order $order)
+    public function __construct( Order $order, OrderPart $orderPart)
     {
         $this->order = $order;
+        $this->orderPart = $orderPart;
+        
     }
     /**
      * Display a listing of the resource.
@@ -89,20 +93,51 @@ class OrderController extends Controller
     }
     
     public function addOrderParts(Request $request) {
-        $loggedUserId = Auth::user()->id;
         
+        $inputs = $request->all();
+       
+        $loggedUserId = Auth::user()->id;
+
+
         $checkIfOrderExist = Order::where("user_id", $loggedUserId)->where("status","DRAFT")->exists();
+        $orderPartData = [];
 
         if (!$checkIfOrderExist) {
 
             $params["user_id"] = $loggedUserId;
-
+            $product = Product::find($inputs['product_id']);
+          
             $order = $this->order->create($params);
-            // update order parts candva in continuare dupa ce creeam tabela order_parts
+
+            $orderPartData['order_id']      = $order->id;
+            $orderPartData['product_id']    = $inputs['product_id'];
+            $orderPartData['quantity']      = $inputs['quantity'];
+            $orderPartData['price']         = $inputs['quantity'] * $product->price;
+            
+            $orderPart = $this->orderPart->create($orderPartData);
         } else {
-            // update order parts candva in continuare dupa ce creeam tabela order_parts
+            $order = Order::where("user_id",$loggedUserId)->where("status","DRAFT")->orderBy("created_at", "desc")->first();
+          
+           $product = Product::find($inputs['product_id']);
+           $orderPartData['order_id']      = $order->id;
+           $orderPartData['product_id']    = $inputs['product_id'];
+           $orderPartData['quantity']      = $inputs['quantity'];
+           $orderPartData['price']         = $inputs['quantity'] * $product->price;
+           
+           $orderPart = $this->orderPart->create($orderPartData);
         }
         
         return redirect()->route('products.index');
+    }
+
+    public function getOrderParts() {
+        $loggedUserId = Auth::user()->id;
+        $order = Order::where("user_id", $loggedUserId)
+                        ->where("status","DRAFT")
+                        ->orderBy('created_at', 'desc')
+                        ->with('orderParts.product')
+                        ->first();
+        
+        return view('orders/order')->withOrder($order);
     }
 }

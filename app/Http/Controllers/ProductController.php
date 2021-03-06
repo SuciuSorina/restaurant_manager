@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
+use App\Order;
+use App\OrderPart;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -40,7 +43,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:products',
+            'name'  => 'required|unique:products',
+            'price' => 'required',
         ]);
         $inputs = $request->all();
         $category = Product::create($inputs);
@@ -86,6 +90,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
+            'price' => 'required',
         ]);
         $inputs= $request->all();
         $checkIfExist= Product::where('id','!=', $id)->where('name',$inputs['name'])->exists();
@@ -108,6 +113,23 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        // $loggedUserId = Auth::user()->id;
+
+        // $order = Order::where('user_id', $loggedUserId)->where('status', 'DRAFT')->orderBy('created_at', 'desc')->pluck('id')->toArray();
+
+        // if (count($order)) {
+            
+        //     $checkIfExistOrderParts = OrderPart::whereIn('order_id', $order)->where('product_id', $id)->exists();
+            
+        //     if ($checkIfExistOrderParts) {
+        //         return back()->with('orderPartExist', 'This product is in some procesed orders');
+        //     }
+
+        // }
+
+        $product->delete();
+        
+        return redirect('/products')->with('success', 'Product deleted!');
     }
 }

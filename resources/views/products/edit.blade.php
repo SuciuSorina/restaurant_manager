@@ -25,13 +25,16 @@
                <input type="text" class="form-control" name="name" value="{{$product->name}}">
             </div>
             <div class="form-group">
+                <label>Price</label>
+                <input type="number" class="form-control" name="price" placeholder="Price" value="{{$product->price}}">
+            </div>
+            <div class="form-group">
                 <label >Select category</label>
                 <select class="form-control" name="category_id">
                     @foreach($categories as $category)
                     <option value="{{$category->id}}" @if($category->id == $product->category_id) selected @endif > {{$category->name}}</option>
                     @endforeach
                 </select>
-
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">

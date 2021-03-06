@@ -19,7 +19,11 @@
 
                     <div class="form-group">
                         <label>Product name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Product name">
+                    <input type="text" class="form-control"  value="{{ old('name') }}" name="name" placeholder="Product name">
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" class="form-control"  value="{{ old('price') }}" name="price" placeholder="Price">
                     </div>
                     <div class="form-group">
                         <label >Select category</label>
