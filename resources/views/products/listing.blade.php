@@ -27,6 +27,32 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+        
+        </div>
+            <div class="col" style="">
+            @if(session('fail'))
+        
+                <div role="alert" aria-live="assertive" aria-atomic="true" class="toast"  style="z-index:999; position:absolute; justify-content: right; display: grid;" >
+                    <div class="toast-header">
+                        <strong class="mr-auto">Add product to cart</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" 	 aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body bg-danger text-white" > 
+                        
+                        {{ session('fail') }}
+                    </div>
+                </div>
+        
+            @endif
+        
+        </div>
+    </div>
+
+
     <div class=" call-md-12 pb-5">
         <a href="{{route('products.create') }}" class="btn btn-info">Create</a>
     </div>

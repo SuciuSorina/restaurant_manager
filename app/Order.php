@@ -16,7 +16,8 @@ class Order extends Model
         'user_id',
         'delivery_type',
         'status',
-        'comment'
+        'comment',
+        'hour'
     ];
 
     public function user()

@@ -16,9 +16,11 @@ class CreateOrderPartsTable extends Migration
         Schema::create('order_parts', function (Blueprint $table) {
             $table->id();
             $table->integer('order_id');
-            $table->integer('product_id');
-            $table->integer('quantity');
-            $table->float('price');
+            $table->integer('product_id')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->float('price')->nullable();
+            $table->string('product_name')->nullable();
+            $table->string('product_price')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

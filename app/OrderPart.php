@@ -13,13 +13,15 @@ class OrderPart extends Model
     
     protected $fillable = [
         'order_id',
+        'product_name',
         'product_id',
+        'product_price',
         'quantity',
         'price'
     ];
 
-    public function product()
-    {
-        return $this->belongsTo('App\Product');
-    }
+    // public function product()
+    // {
+    //     return $this->belongsTo('App\Product');
+    // }
 }

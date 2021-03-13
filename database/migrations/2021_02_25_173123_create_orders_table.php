@@ -18,7 +18,8 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->nullable();
             $table->string('delivery_type')->nullable();
             $table->string('status')->default('DRAFT');
-            $table->string('comment')->nullable();;
+            $table->string('comment')->nullable();
+            $table->string('hour')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
