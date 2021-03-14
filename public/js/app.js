@@ -22,24 +22,32 @@ function placeOrder() {
 
     var selector = $('#hour').val()
     var flag = 0;
+
     if (selector =="0") {
         var flag = 1
         alert("Please select an hour");
         return false;
     }
+
     if (flag == 0) {
         var deliveryType = $('#delivery_type').val();
         var hour = $('#hour').val();
-        var fromPlaceOrder = $('#from_place_order').val();
+        var status = $('#status').val();
 
         const data = {
             "delivery_type": deliveryType,
             "hour": hour,
-            "from_place_order": fromPlaceOrder
+            "status": status
         }
 
-        $.post('/add-order-items', data, function (response) {
-            $('#order-success').replaceWith(response);
+        $.post('/update-status', data, function (response) {
+            if (response == 'fail') {
+                window.location.replace("http://127.0.0.1:8000/order-items");
+                alert("Hour passed");
+            } else {
+                $('#order-success').replaceWith(response);
+            }
+
         });
     }
 }

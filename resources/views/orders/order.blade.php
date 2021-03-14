@@ -2,6 +2,33 @@
 
 @section('content')
 <div id="order-success">
+    
+    
+    <div class="row">
+        <div class="col">
+        
+        </div>
+            <div class="col" style="">
+            @if(session('hourPasseed'))
+        
+                <div role="alert" aria-live="assertive" aria-atomic="true" class="toast"  style="z-index:999; position:absolute; justify-content: right; display: grid;" >
+                    <div class="toast-header">
+                        <strong class="mr-auto">Hour passed</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" 	 aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body text-white" > 
+                        
+                        {{ session('hourPasseed') }}
+                    </div>
+                </div>
+        
+            @endif
+        
+        </div>
+    </div>
+
     <table class="table table-bordered">
         <tr colspan="2">
             <td>
@@ -15,7 +42,7 @@
         </tr>
         <tr>
             <td  class="text-center align-middle">
-                <input type="hidden" id="from_place_order" value="1">
+                <input type="hidden" id="status" value="NEW">
                 <select class="form-control" name="delivery_type" id="delivery_type">
                     <option value="delivery">Delivery</option>
                     <option value="meet_half">Meet at Half Way</option>
@@ -25,7 +52,7 @@
             <td  class="text-center align-middle">
                 <select class="form-control" name="hour" id="hour" onchange="removeCheckHourValidation();">
                     <option value="0">Select hour</option>
-                    @foreach($hours as $hour)
+                    @foreach($goodHours as $hour)
                         <option value="{{$hour}}">{{$hour}}</option>
                     @endforeach
                 </select>
