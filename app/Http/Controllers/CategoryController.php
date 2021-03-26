@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Category as Category;
+use App\Product as Product;
 use Illuminate\Http\Request;
 
 
 class CategoryController extends Controller
 {
-    public function __construct( Category $category)
+    public function __construct( Category $category, Product $product)
     {
         $this->category = $category;
+        $this->product = $product;
     }
 
     /**
@@ -60,7 +62,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        // dd($id);
+        $products = $this->product->where('category_id', $id)->get();
+        // dd($products);
+        return view('categories.show')->withProducts($products);
     }
 
     /**
@@ -116,7 +121,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category= $this->category->find($id);
-        // dd($category);
+
+        $checkIfHasProduct = $this->product->where('category_id', $id)->get();
+        
+        if (count($checkIfHasProduct)) {
+            return back()->with("hasProduct", "This category has products assigned.");
+        }
+        
         $category->delete();
 
         return redirect()->route('categories.index');

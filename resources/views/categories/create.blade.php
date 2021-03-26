@@ -17,7 +17,7 @@
             <form action="/categories" method="post">
                 @csrf
                 <div class="form-group">
-                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Category name">
+                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Category name" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">

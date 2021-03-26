@@ -22,6 +22,7 @@ function placeOrder() {
 
     var selector = $('#hour').val()
     var flag = 0;
+    var total = $('#total').val()
 
     if (selector =="0") {
         var flag = 1
@@ -37,7 +38,8 @@ function placeOrder() {
         const data = {
             "delivery_type": deliveryType,
             "hour": hour,
-            "status": status
+            "status": status,
+            'total': total
         }
 
         $.post('/update-status', data, function (response) {

@@ -29,7 +29,6 @@
         @include('partials.navbar')
         <div class="container pt-5 ">
             @yield('content')
-
         </div>
 
     </body>

@@ -20,12 +20,14 @@ Route::get('/', function () {
 Route::resource('categories', 'CategoryController');
 Route::resource('products', 'ProductController');
 Route::resource('orders', 'OrderController');
-Route::get('/order-items', 'OrderController@getOrderParts');
+Route::get('/order-items', 'OrderController@getOrderParts')->name('cart');
 Route::post('/add-order-items', 'OrderController@addOrderParts');
+Route::post('/remove-order-items', 'OrderController@removeOrderParts');
+
 Route::post('/update-status', 'OrderController@updateOrderStatus');
 
 Route::get('/customers', 'UserController@getCustomers');
-
+Route::get('/show-order/{id}', 'OrderController@showOrder');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

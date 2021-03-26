@@ -18,4 +18,8 @@ class Category extends Model
         return $this->get();
     }
 
+    public function products() {
+        return $this->belongsTo('App\Product');
+    }
+
 }

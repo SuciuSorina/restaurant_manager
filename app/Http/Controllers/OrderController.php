@@ -23,7 +23,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        
+        $orders = $this->order->with('user')->where('status', '!=', 'DRAFT')->get();
+        return view('orders.listing')->withOrders($orders);
     }
 
     /**
@@ -128,13 +130,13 @@ class OrderController extends Controller
            $orderPart = $this->orderPart->create($orderPartData);
         }
         
-        return redirect()->route('products.index');
+        return redirect()->route('categories.index');
     }
 
     public function getOrderParts() {
 
         $loggedUserId = Auth::user()->id;
-
+        $total = 0;
         $order = Order::where("user_id", $loggedUserId)
                         ->where("status","DRAFT")
                         ->orderBy('created_at', 'desc')
@@ -153,11 +155,18 @@ class OrderController extends Controller
         }
 
         if($order == null) {
-            return back()->with('fail', 'Please add product in cart!');
+            return view('orders/order');
+        }
+
+        if(count($order->orderParts)) {
+            foreach($order->orderParts as $part) {
+                $total = $total + $part->price;
+            }
         }
 
         return view('orders/order')->withOrder($order)
-                                    ->withGoodHours($goodHours);
+                                    ->withGoodHours($goodHours)
+                                    ->withTotal($total);
     }
 
     public function updateOrderStatus(Request $request) {
@@ -182,9 +191,25 @@ class OrderController extends Controller
             $order->status = $inputs['status'];
             $order->delivery_type = $inputs["delivery_type"];
             $order->hour = $inputs["hour"];
+            $order->total = $inputs["total"];
             $order->update();
 
             return view("orders.orderPlaced");
         }
+    }
+
+    public function removeOrderParts(Request $request) {
+        $inputs = $request->all();
+
+        $orderPart = OrderPart::find($inputs['part_id']);
+        
+        $orderPart->delete();
+        return redirect()->route('cart');
+    }
+
+    public function showOrder($id) {
+
+        $order = Order::where('id', $id)->with('orderParts')->first();
+        return view('orders.show')->withOrder($order);
     }
 }

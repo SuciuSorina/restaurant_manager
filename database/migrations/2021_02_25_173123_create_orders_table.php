@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('status')->default('DRAFT');
             $table->string('comment')->nullable();
             $table->string('hour')->nullable();
+            $table->integer('total')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

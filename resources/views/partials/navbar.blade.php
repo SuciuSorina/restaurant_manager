@@ -33,6 +33,9 @@
           <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
         </li>
       @endif
+      <li class="nav-item {{ (\Request::path() == 'orders') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ url('orders') }}" >Orders</a>
+      </li>
     </ul>
     <ul class="navbar-nav  ml-auto">
       <li class=" nav-item {{ (\Request::path() == 'order-items') ? 'active' : '' }}">

@@ -19,11 +19,11 @@
 
                     <div class="form-group">
                         <label>Product name</label>
-                    <input type="text" class="form-control"  value="{{ old('name') }}" name="name" placeholder="Product name">
+                    <input type="text" class="form-control"  value="{{ old('name') }}" name="name" placeholder="Product name" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="number" class="form-control"  value="{{ old('price') }}" name="price" placeholder="Price">
+                        <input type="number" class="form-control"  value="{{ old('price') }}" name="price" placeholder="Price" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label >Select category</label>
@@ -37,6 +37,7 @@
                         <button type="submit" class="btn btn-success">
                             Create
                         </button>
+                        <a href="{{route('products.index')}}" style="color:white;" type="button" class="btn btn-warning">Back </a>
                     </div>
             </form>
         </div>

@@ -17,6 +17,7 @@ class Order extends Model
         'delivery_type',
         'status',
         'comment',
+        'total',
         'hour'
     ];
 
@@ -71,4 +72,6 @@ class Order extends Model
         return $hours;
 
     }
+
+    
 }
