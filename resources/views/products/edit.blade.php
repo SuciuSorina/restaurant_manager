@@ -20,10 +20,15 @@
         <div class="col-md-2"></div>
         <div class="card col-md-8">
             <h1 style="font-size: xx-large; font-weight: inherit;" class="mb-3 pt-3">Edit product</h1>
-            <form action="{{ route(('products.update'), $product->id) }}" method="post">
+            <form action="{{ route(('products.update'), $product->id) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')    
                 @csrf
-
+                
+                <div style="display:flex; justify-content: center; align-items:center;" class="form-group">
+                    <label class="mr-2">Current Image</label>
+                    <img src="{{asset('uploads/products/'. $product->image)}}" alt="..."
+                     width="100px" height="100px">
+                </div>
                 <div class="form-group">
                     <label>Product name</label>
                     <input type="text" class="form-control" name="name" value="{{$product->name}}" autocomplete="off">
@@ -39,6 +44,11 @@
                         <option value="{{$category->id}}" @if($category->id == $product->category_id) selected @endif > {{$category->name}}</option>
                         @endforeach
                     </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" class="form-control" name="image">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">

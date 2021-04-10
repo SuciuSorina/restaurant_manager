@@ -14,7 +14,7 @@
         <div class="col-md-2"></div>
         <div class="card col-md-8">
             <h1 style="font-size: xx-large; font-weight: inherit;" class="mb-3 pt-3"s>Create product</h1>
-            <form action="/products" method="post">
+            <form action="/products" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group">
@@ -32,6 +32,10 @@
                                 <option value="{{$category->id}}">{{$category->name}} </option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" class="form-control" name="image">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">

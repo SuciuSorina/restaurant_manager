@@ -45,9 +45,24 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name'  => 'required|unique:products',
             'price' => 'required',
+            'image' => 'required',
         ]);
         $inputs = $request->all();
-        $category = Product::create($inputs);
+
+        $product = new Product();
+        $product->name = $inputs['name'];
+        $product->price = $inputs['price'];
+        $product->category_id = $inputs['category_id'];
+
+        if($inputs['image']) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $product->name. '-' . time() . '.' . $extension;
+            $file->move('uploads/products/', $filename);
+            $product->image = $filename;
+        }
+
+        $product->save();
 
         return redirect()->route('products.index');
     }
@@ -92,7 +107,9 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required',
         ]);
+
         $inputs= $request->all();
+        
         $checkIfExist= Product::where('id','!=', $id)->where('name',$inputs['name'])->exists();
 
         if ($checkIfExist) {
@@ -100,7 +117,23 @@ class ProductController extends Controller
         }
 
         $product = Product::find($id);
-        $product->update($inputs);
+
+        if($inputs['image']) {
+            $image_path = public_path("/uploads/products/". $product->image);
+            
+            if(\File::exists($image_path)) {
+                \File::delete($image_path);
+            }
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $product->name. '-' . time() . '.' . $extension;
+            $file->move('uploads/products/', $filename);
+            $product->image = $filename;
+
+        }
+
+        
+        $product->save();
 
         return redirect()->route('products.index');
     }
