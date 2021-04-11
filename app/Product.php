@@ -11,7 +11,7 @@ class Product extends Model
     protected $products;
 
     protected $fillable = [
-        'name', 'category_id', 'price','image'
+        'name', 'category_id', 'price','image', 'description'
     ];
 
     public static function getAll()

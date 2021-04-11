@@ -53,3 +53,15 @@ function placeOrder() {
         });
     }
 }
+
+function updateStatus(orderId) {
+    var orderStatus= $('#status_order_'+orderId).val()
+    var data={
+        "status": orderStatus,
+        "order_id": orderId
+    }
+    $.post('/update-status', data, function (response) {
+        // window.location.replace(response);
+        window.location.replace("http://127.0.0.1:8000/orders");
+    });
+}

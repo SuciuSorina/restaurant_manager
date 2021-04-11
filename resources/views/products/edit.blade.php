@@ -38,6 +38,10 @@
                     <input type="number" class="form-control" name="price" placeholder="Price" value="{{$product->price}}" autocomplete="off">
                 </div>
                 <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control"  value="{{$product->description}}" name="description" placeholder="Description" autocomplete="off">
+                </div>
+                <div class="form-group">
                     <label >Select category</label>
                     <select class="form-control" name="category_id">
                         @foreach($categories as $category)

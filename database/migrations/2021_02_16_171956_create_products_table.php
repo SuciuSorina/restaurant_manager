@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
+            $table->string('description');
             $table->foreignId('category_id')->nullable();
             $table->double('price')->default(0);
             $table->softDeletes();

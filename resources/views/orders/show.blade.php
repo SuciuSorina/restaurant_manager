@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                    
-                    <a href="" style="color:white;" type="button" class="btn btn-warning">Back </a>
+                    <a href="{{route('orders.index')}}" style="color:white;" type="button" class="btn btn-warning">Back </a>
                 </div>
         </div>
     <div class="col-md-2"></div>

@@ -146,7 +146,7 @@ class OrderController extends Controller
         $hours = $this->order->getHours();
 
         $goodHours = [];
-        $currentHour = date('H:i', strtotime('+2 hour')); // preia ora Romaniei +2 GMT
+        $currentHour = date('H:i', strtotime('+3 hour')); // preia ora Romaniei +2 GMT
 
         foreach($hours as $hour) {
             if($hour > $currentHour) {
@@ -173,16 +173,16 @@ class OrderController extends Controller
 
         $inputs = $request->all();
        
-        $loggedUserId = Auth::user()->id;
+      
 
-        $order = Order::where("user_id", $loggedUserId)
+        if ($inputs['status'] == "NEW") {
+            $loggedUserId = Auth::user()->id;
+            $order = Order::where("user_id", $loggedUserId)
                     ->where("status","DRAFT")
                     ->orderBy('created_at', 'desc')
                     ->first();
-
-        if ($inputs['status'] == "NEW") {
             
-            $currentHour = date('H:i', strtotime('+2 hour'));
+            $currentHour = date('H:i', strtotime('+3 hour'));
 
             if ($inputs["hour"] < $currentHour) {
                 return "fail";
@@ -195,7 +195,17 @@ class OrderController extends Controller
             $order->update();
 
             return view("orders.orderPlaced");
+        } 
+
+        if (in_array($inputs['status'], ["PROCESSING", "DELIVERED", "CANCELED"])) {
+            // update order status
+            // dd($inputs);
+            $order = Order::find($inputs['order_id']);
+            $order->status = $inputs['status'];
+            $order->update();
+            return redirect()->route('orders.index');
         }
+
     }
 
     public function removeOrderParts(Request $request) {

@@ -46,6 +46,7 @@ class ProductController extends Controller
             'name'  => 'required|unique:products',
             'price' => 'required',
             'image' => 'required',
+            'description'   => 'required',
         ]);
         $inputs = $request->all();
 
@@ -53,6 +54,7 @@ class ProductController extends Controller
         $product->name = $inputs['name'];
         $product->price = $inputs['price'];
         $product->category_id = $inputs['category_id'];
+        $product->description = $inputs['description'];
 
         if($inputs['image']) {
             $file = $request->file('image');
@@ -106,6 +108,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'price' => 'required',
+            'description'   => 'required',
         ]);
 
         $inputs= $request->all();
@@ -117,8 +120,12 @@ class ProductController extends Controller
         }
 
         $product = Product::find($id);
+        $product->name = $inputs['name'];
+        $product->price = $inputs['price'];
+        $product->category_id = $inputs['category_id'];
+        $product->description = $inputs['description'];
 
-        if($inputs['image']) {
+        if(isset($inputs['image']) && $inputs['image']) {
             $image_path = public_path("/uploads/products/". $product->image);
             
             if(\File::exists($image_path)) {

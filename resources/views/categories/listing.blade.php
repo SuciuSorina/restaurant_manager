@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    @if (Auth::user()->role == "ADMIN")
+    @if (Auth::user() && Auth::user()->role == "ADMIN")
         <div class="row">
             <div class="col">
             

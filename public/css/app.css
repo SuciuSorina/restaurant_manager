@@ -3,3 +3,29 @@
     border-color:#8733FF;
     background-color: #8733FF;
 }
+.btn-category:hover {
+    color: white;
+    border-color:#844dd182;
+    background-color: #844dd182;
+}
+.card-cart-form {
+    display: inline-flex;
+    align-items: center;
+}
+.pr-1rem {
+    padding-right: 1rem;
+}
+.display-flex {
+    display: flex;
+}
+.jc-center {
+    justify-content: center;
+}
+.mt-1rem {
+    margin-top: 1rem;
+}
+.btn-update-order {
+    color: white;
+    border-color:#8675a9;
+    background-color: #8675a9;
+}

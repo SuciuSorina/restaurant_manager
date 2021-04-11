@@ -30,6 +30,7 @@
         <div class="col-md-3">
             <label> Select orders with status </label>
             <select class="form-control" name="status">
+                <option value="ALL"> All </option>
                 <option value="NEW"> New </option>
                 <option value="PROCESSING"> Processing </option>
                 <option value="DELIVERED"> Delivered </option>
@@ -56,9 +57,20 @@
                     <td  class="text-center align-middle">{{$order->user->name}}</td>
                     <td  class="text-center align-middle">{{$order->hour}}</td>
                     <td  class="text-center align-middle">{{$order->delivery_type}}</td>
-                    <td  class="text-center align-middle">{{$order->status}}</td>
+                    <td  class="text-center align-middle">
+                        <select class="form-control" id="status_order_{{$order->id}}">
+                            @if( $order->status == 'NEW')
+                                <option value="NEW"  {{ $order->status == 'NEW' ? 'selected' : '' }} > New </option>
+                            @endif
+                            <option value="PROCESSING" {{ $order->status == 'PROCESSING' ? 'selected' : '' }}> Processing </option>
+                            <option value="DELIVERED" {{ $order->status == 'DELIVERED' ? 'selected' : '' }}> Delivered </option>
+                            <option value="CANCELED" {{ $order->status == 'CANCELED' ? 'selected' : '' }}> Canceled </option>
+                        </select>   
+                    
+                        
+                    </td>
                     <td class="text-center align-middle">
-                        <a type="button" href="{{ route(('categories.edit'), $order->id) }}" class="btn btn-primary">Update</a>
+                        <a type="button" onclick="updateStatus({{$order->id}})" class="btn btn-update-order">Update</a>
                         <a type="button" href="show-order/{{$order->id}}" class="btn btn-primary">Details</a>
         
                         {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoryModal" data-id="{{$category->id }}">
