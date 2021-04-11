@@ -21,11 +21,11 @@
         <div class="card col-md-8">
             <h1 style="font-size: xx-large; font-weight: inherit;" class="mb-3 pt-3">Edit product</h1>
             <form action="{{ route(('products.update'), $product->id) }}" method="post" enctype="multipart/form-data">
-                @method('PUT')    
+                @method('PUT')
                 @csrf
-                
+
                 <div style="display:flex; justify-content: center; align-items:center;" class="form-group">
-                    <label class="mr-2">Current Image</label>
+
                     <img src="{{asset('uploads/products/'. $product->image)}}" alt="..."
                      width="100px" height="100px">
                 </div>
@@ -49,7 +49,7 @@
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Image</label>
                     <input type="file" class="form-control" name="image">

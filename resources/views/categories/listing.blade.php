@@ -4,11 +4,11 @@
     @if (Auth::user() && Auth::user()->role == "ADMIN")
         <div class="row">
             <div class="col">
-            
+
             </div>
                 <div class="col" style="">
                 @if(session('hasProduct'))
-            
+
                     <div role="alert" aria-live="assertive" aria-atomic="true" class="toast"  style="z-index:999; position:absolute; justify-content: right; display: grid;" >
                         <div class="toast-header">
                             <strong class="mr-auto">Category has product</strong>
@@ -16,14 +16,14 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="toast-body bg-danger text-white" > 
-                            
+                        <div class="toast-body bg-danger text-white" >
+
                             {{ session('hasProduct') }}
                         </div>
                     </div>
-            
+
                 @endif
-            
+
             </div>
         </div>
 
@@ -45,11 +45,11 @@
                         <td  class="text-center align-middle">{{$category->name}}</td>
                         <td colspan="2" class="text-center align-middle">
                             <a type="button" href="{{ route(('categories.edit'), $category->id) }}" class="btn btn-primary">Edit</a>
-            
+
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoryModal" data-id="{{$category->id }}">
                                 Delete
                             </button>
-                            
+
                             <!-- Modal -->
                             <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -67,7 +67,7 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <form action="{{ route(('categories.destroy'), $category->id) }}" method="post" style="display:inline;">
                                                 {{csrf_field()}}
-                                                {{ method_field('DELETE') }}				
+                                                {{ method_field('DELETE') }}
                                                 <button class="btn btn-danger btn-md" type="submit">Yes
                                                 </button>
                                             </form>
@@ -83,7 +83,7 @@
                 @endforeach
             </tbody>
         </table>
-    @else 
+    @else
         <div classs="row" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
             @foreach($categories as $category)
                 <div class="col-md-4 p-2">
@@ -101,8 +101,8 @@
     @endif
 
     <script>
-    
-    
+
+
         $(document).ready(function(){
           $(".toast").toast({
                 delay: 2000

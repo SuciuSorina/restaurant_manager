@@ -4,11 +4,11 @@
     @if(Auth::user() && (Auth::user()->role == 'ADMIN') )
         <div class="row">
             <div class="col">
-            
+
             </div>
                 <div class="col" style="">
                 @if(session('success'))
-            
+
                     <div role="alert" aria-live="assertive" aria-atomic="true" class="toast"  style="z-index:999; position:absolute; justify-content: right; display: grid;" >
                         <div class="toast-header">
                             <strong class="mr-auto">Deleted product</strong>
@@ -16,24 +16,24 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="toast-body bg-success text-white" > 
-                            
+                        <div class="toast-body bg-success text-white" >
+
                             {{ session('success') }}
                         </div>
                     </div>
-            
+
                 @endif
-            
+
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-            
+
             </div>
                 <div class="col" style="">
                 @if(session('fail'))
-            
+
                     <div role="alert" aria-live="assertive" aria-atomic="true" class="toast"  style="z-index:999; position:absolute; justify-content: right; display: grid;" >
                         <div class="toast-header">
                             <strong class="mr-auto">Add product to cart</strong>
@@ -41,14 +41,14 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="toast-body bg-danger text-white" > 
-                            
+                        <div class="toast-body bg-danger text-white" >
+
                             {{ session('fail') }}
                         </div>
                     </div>
-            
+
                 @endif
-            
+
             </div>
         </div>
 
@@ -58,8 +58,8 @@
         </div>
 
 
-        
-        
+
+
         <table class="table table-bordered fixed">
             <thead>
             <tr>
@@ -94,7 +94,7 @@
                                     <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
                                     {{-- <button type="submit" class="btn btn-success">
                                         Add to cart
-                                    </button> 
+                                    </button>
 
                                 </form> --}}
 
@@ -138,6 +138,15 @@
         </table>
         @endif
         @if((Auth::user() &&  (Auth::user()->role == 'CUSTOMER')) || !Auth::user())
+
+            @if(Session::has('successAdded'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ Session::get('successAdded') }} </strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div classs="row" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
                 @foreach($products as $product)
                     <div class="col-md-4 p-2">
@@ -152,11 +161,11 @@
                                     <form action="/add-order-items" method="post" class="mr-2">
                                         @csrf
                                         <div class="card-cart-form">
-                                            <label class="pr-1rem">Quantity:</label> 
+                                            <label class="pr-1rem">Quantity:</label>
                                             <input type="number" name="quantity" class="form-control" value="1" autocomplete="off">
                                         </div>
                                         <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
-                                        <div class="display-flex jc-center"> 
+                                        <div class="display-flex jc-center">
                                             <button class="btn btn-primary mt-1rem">Add to Cart</button>
                                         </div>
                                     </form>
@@ -171,8 +180,8 @@
 
 
     <script>
-    
-    
+
+
         $(document).ready(function(){
           $(".toast").toast({
                 delay: 2000

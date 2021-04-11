@@ -47,6 +47,15 @@
         </tbody>
     </table> --}}
 
+    @if(Session::has('successAdded'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ Session::get('successAdded') }} </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
     <div classs="row" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
         @foreach($products as $product)
             <div class="col-md-4 p-2">
@@ -56,19 +65,19 @@
                     <h5 class="card-title">{{$product->name}}</h5>
                     <p class="card-text">{{$product->description}} </br>
                     <b> Price: </b> {{$product->price}} RON</br>
-                        
+
                             <form action="/add-order-items" method="post" class="mr-2">
                                 @csrf
                                 <div class="card-cart-form">
-                                    <label class="pr-1rem">Quantity:</label> 
+                                    <label class="pr-1rem">Quantity:</label>
                                     <input type="number" name="quantity" class="form-control" value="1" autocomplete="off">
                                 </div>
                                 <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
-                                <div class="display-flex jc-center"> 
+                                <div class="display-flex jc-center">
                                     <button class="btn btn-primary mt-1rem">Add to Cart</button>
                                 </div>
                             </form>
-                        
+
                     </p>
                     </div>
                 </div>

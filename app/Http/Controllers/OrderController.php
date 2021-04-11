@@ -14,7 +14,7 @@ class OrderController extends Controller
     {
         $this->order = $order;
         $this->orderPart = $orderPart;
-        
+
     }
     /**
      * Display a listing of the resource.
@@ -23,8 +23,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        
-        $orders = $this->order->with('user')->where('status', '!=', 'DRAFT')->get();
+        $loggedUser = Auth::user();
+
+        if($loggedUser->role == 'ADMIN' ) {
+            $orders = $this->order->with('user')->where('status', '!=', 'DRAFT')->get();
+        } else {
+            $orders = $this->order->with('user')->where('user_id',$loggedUser->id)->where('status', '!=', 'DRAFT')->get();
+        }
+
         return view('orders.listing')->withOrders($orders);
     }
 
@@ -93,11 +99,11 @@ class OrderController extends Controller
     {
         //
     }
-    
+
     public function addOrderParts(Request $request) {
-        
+
         $inputs = $request->all();
-       
+
         $loggedUserId = Auth::user()->id;
 
         $checkIfOrderExist = Order::where("user_id", $loggedUserId)->where("status","DRAFT")->exists();
@@ -107,7 +113,7 @@ class OrderController extends Controller
 
             $params["user_id"] = $loggedUserId;
             $product = Product::find($inputs['product_id']);
-          
+
             $order = $this->order->create($params);
 
             $orderPartData['order_id']          = $order->id;
@@ -115,22 +121,23 @@ class OrderController extends Controller
             $orderPartData['product_price']     = $product->price;
             $orderPartData['quantity']          = $inputs['quantity'];
             $orderPartData['price']             = $inputs['quantity'] * $product->price;
-            
+
             $orderPart = $this->orderPart->create($orderPartData);
         } else {
            $order = Order::where("user_id",$loggedUserId)->where("status","DRAFT")->orderBy("created_at", "desc")->first();
-          
+
            $product = Product::find($inputs['product_id']);
            $orderPartData['order_id']          = $order->id;
            $orderPartData['product_name']      = $product->name;
            $orderPartData['product_price']     = $product->price;
            $orderPartData['quantity']          = $inputs['quantity'];
            $orderPartData['price']             = $inputs['quantity'] * $product->price;
-           
+
            $orderPart = $this->orderPart->create($orderPartData);
         }
-        
-        return redirect()->route('categories.index');
+
+        // return redirect()->route('categories.index');
+        return redirect()->back()->with('successAdded', "Your product has been added with success to cart!");
     }
 
     public function getOrderParts() {
@@ -172,8 +179,8 @@ class OrderController extends Controller
     public function updateOrderStatus(Request $request) {
 
         $inputs = $request->all();
-       
-      
+
+
 
         if ($inputs['status'] == "NEW") {
             $loggedUserId = Auth::user()->id;
@@ -181,7 +188,7 @@ class OrderController extends Controller
                     ->where("status","DRAFT")
                     ->orderBy('created_at', 'desc')
                     ->first();
-            
+
             $currentHour = date('H:i', strtotime('+3 hour'));
 
             if ($inputs["hour"] < $currentHour) {
@@ -195,7 +202,7 @@ class OrderController extends Controller
             $order->update();
 
             return view("orders.orderPlaced");
-        } 
+        }
 
         if (in_array($inputs['status'], ["PROCESSING", "DELIVERED", "CANCELED"])) {
             // update order status
@@ -212,14 +219,14 @@ class OrderController extends Controller
         $inputs = $request->all();
 
         $orderPart = OrderPart::find($inputs['part_id']);
-        
+
         $orderPart->delete();
         return redirect()->route('cart');
     }
 
     public function showOrder($id) {
 
-        $order = Order::where('id', $id)->with('orderParts')->first();
+        $order = Order::where('id', $id)->with('user')->with('orderParts')->first();
         return view('orders.show')->withOrder($order);
     }
 }

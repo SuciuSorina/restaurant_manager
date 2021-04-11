@@ -3,11 +3,11 @@
 @section('content')
     <div class="row">
         <div class="col">
-        
+
         </div>
             <div class="col" style="">
             @if(session('hasProduct'))
-        
+
                 <div role="alert" aria-live="assertive" aria-atomic="true" class="toast"  style="z-index:999; position:absolute; justify-content: right; display: grid;" >
                     <div class="toast-header">
                         <strong class="mr-auto">Category has product</strong>
@@ -15,14 +15,14 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="toast-body bg-danger text-white" > 
-                        
+                    <div class="toast-body bg-danger text-white" >
+
                         {{ session('hasProduct') }}
                     </div>
                 </div>
-        
+
             @endif
-        
+
         </div>
     </div>
 
@@ -56,27 +56,33 @@
                     <th  class="text-center align-middle">{{$order->id}}</th>
                     <td  class="text-center align-middle">{{$order->user->name}}</td>
                     <td  class="text-center align-middle">{{$order->hour}}</td>
-                    <td  class="text-center align-middle">{{$order->delivery_type}}</td>
+                    <td  class="text-center align-middle">{{displayStatus($order->delivery_type)}}</td>
                     <td  class="text-center align-middle">
-                        <select class="form-control" id="status_order_{{$order->id}}">
-                            @if( $order->status == 'NEW')
-                                <option value="NEW"  {{ $order->status == 'NEW' ? 'selected' : '' }} > New </option>
-                            @endif
-                            <option value="PROCESSING" {{ $order->status == 'PROCESSING' ? 'selected' : '' }}> Processing </option>
-                            <option value="DELIVERED" {{ $order->status == 'DELIVERED' ? 'selected' : '' }}> Delivered </option>
-                            <option value="CANCELED" {{ $order->status == 'CANCELED' ? 'selected' : '' }}> Canceled </option>
-                        </select>   
-                    
-                        
+                        @if(Auth::user()->role == 'ADMIN' )
+                            <select class="form-control" id="status_order_{{$order->id}}">
+                                @if( $order->status == 'NEW')
+                                    <option value="NEW"  {{ $order->status == 'NEW' ? 'selected' : '' }} > New </option>
+                                @endif
+                                <option value="PROCESSING" {{ $order->status == 'PROCESSING' ? 'selected' : '' }}> Processing </option>
+                                <option value="DELIVERED" {{ $order->status == 'DELIVERED' ? 'selected' : '' }}> Delivered </option>
+                                <option value="CANCELED" {{ $order->status == 'CANCELED' ? 'selected' : '' }}> Canceled </option>
+                            </select>
+                        @else
+                            {{ $order->status }}
+                        @endif
+
+
                     </td>
                     <td class="text-center align-middle">
-                        <a type="button" onclick="updateStatus({{$order->id}})" class="btn btn-update-order">Update</a>
+                        @if(Auth::user()->role == 'ADMIN' )
+                            <a type="button" onclick="updateStatus({{$order->id}})" class="btn btn-update-order">Update</a>
+                        @endif
                         <a type="button" href="show-order/{{$order->id}}" class="btn btn-primary">Details</a>
-        
+
                         {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoryModal" data-id="{{$category->id }}">
                             Delete
                         </button> --}}
-                        
+
 
                     </td>
                 </tr>
@@ -85,8 +91,8 @@
     </table>
 
     <script>
-    
-    
+
+
         $(document).ready(function(){
           $(".toast").toast({
                 delay: 2000

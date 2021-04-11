@@ -11,10 +11,12 @@
       <li class="nav-item {{ (\Request::path() == 'categories') ? 'active' : '' }} ">
         <a class="nav-link"  href="{{ url('categories') }}">Categories</a>
       </li>
-      <li class="nav-item {{ (\Request::path() == 'customers') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ url('customers') }}" >Customers</a>
-      </li>
-      @if(Auth::user())   
+      @if(Auth::user() && Auth::user()->role == 'ADMIN' )
+        <li class="nav-item {{ (\Request::path() == 'customers') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('customers') }}" >Customers</a>
+        </li>
+      @endif
+      @if(Auth::user())
         <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"
               onclick="event.preventDefault();
@@ -25,7 +27,7 @@
               @csrf
           </form>
         </li>
-      @else 
+      @else
         <li class="nav-item">
           <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
         </li>
