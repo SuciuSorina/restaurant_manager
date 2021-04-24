@@ -26,17 +26,25 @@
         </div>
     </div>
 
-    <div class="col-12 pb-5">
-        <div class="col-md-3">
-            <label> Select orders with status </label>
-            <select class="form-control" name="status">
-                <option value="ALL"> All </option>
-                <option value="NEW"> New </option>
-                <option value="PROCESSING"> Processing </option>
-                <option value="DELIVERED"> Delivered </option>
-                <option value="CANCELED"> Canceled </option>
-            </select>
-        </div>
+    <div class=" pb-5 ml-2 row align-items-center ">
+        {{-- <div class="col-md-5 row "> --}}
+            <div> 
+                <label > Filter orders </label> <br>
+                <div class="row">
+                    <form method="get" class="d-flex" action="{{route('orders.index')}}">
+                        @csrf
+                        <select class="form-control" name="status">
+                            <option value="ALL" @if($status == "ALL") selected @endif > All </option>
+                            <option value="NEW" @if($status == "NEW") selected @endif > New </option>
+                            <option value="PROCESSING" @if($status == "PROCESSING") selected @endif > Processing </option>
+                            <option value="DELIVERED" @if($status == "DELIVERED") selected @endif > Delivered </option>
+                            <option value="CANCELED" @if($status == "CANCELED") selected @endif > Canceled </option>
+                        </select>
+                        <button type="submit" class="btn ml-2 btn-success btn-md">Search</button>
+                    </form>
+                </div>
+            </div>
+        {{-- </div> --}}
     </div>
 
     <table class="table table-bordered pt-5">

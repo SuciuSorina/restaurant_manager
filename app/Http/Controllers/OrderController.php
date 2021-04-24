@@ -21,17 +21,30 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $inputs = $request->all();
         $loggedUser = Auth::user();
 
         if($loggedUser->role == 'ADMIN' ) {
-            $orders = $this->order->with('user')->where('status', '!=', 'DRAFT')->get();
+            $orders = $this->order->with('user')->where('status', '!=', 'DRAFT');
         } else {
-            $orders = $this->order->with('user')->where('user_id',$loggedUser->id)->where('status', '!=', 'DRAFT')->get();
+            $orders = $this->order->with('user')->where('user_id',$loggedUser->id)->where('status', '!=', 'DRAFT');
         }
 
-        return view('orders.listing')->withOrders($orders);
+        if($request->has('status') && $inputs['status'] !="ALL" ) {
+            // dd("here");
+            $orders = $orders->where('status', $inputs['status']);
+            $status = $inputs['status'];
+        } else {
+            $status = "ALL";
+        }
+
+        $orders = $orders->get();
+
+        return view('orders.listing')
+                    ->withOrders($orders)
+                    ->withStatus($status);
     }
 
     /**

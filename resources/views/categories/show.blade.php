@@ -65,19 +65,19 @@
                     <h5 class="card-title">{{$product->name}}</h5>
                     <p class="card-text">{{$product->description}} </br>
                     <b> Price: </b> {{$product->price}} RON</br>
-
-                            <form action="/add-order-items" method="post" class="mr-2">
-                                @csrf
-                                <div class="card-cart-form">
-                                    <label class="pr-1rem">Quantity:</label>
-                                    <input type="number" name="quantity" class="form-control" value="1" autocomplete="off">
-                                </div>
-                                <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
-                                <div class="display-flex jc-center">
-                                    <button class="btn btn-primary mt-1rem">Add to Cart</button>
-                                </div>
-                            </form>
-
+                    @if(Auth::user() && (Auth::user()->role == 'CUSTOMER') )
+                        <form action="/add-order-items" method="post" class="mr-2">
+                            @csrf
+                            <div class="card-cart-form">
+                                <label class="pr-1rem">Quantity:</label>
+                                <input type="number" name="quantity" class="form-control" value="1" autocomplete="off">
+                            </div>
+                            <input type="hidden" name="product_id" class="form-control" value="{{$product->id}}">
+                            <div class="display-flex jc-center">
+                                <button class="btn btn-primary mt-1rem">Add to Cart</button>
+                            </div>
+                        </form>
+                    @endif  
                     </p>
                     </div>
                 </div>

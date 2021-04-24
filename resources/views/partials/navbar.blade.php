@@ -17,6 +17,9 @@
         </li>
       @endif
       @if(Auth::user())
+        <li class="nav-item {{ (\Request::path() == 'orders') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('orders') }}" >Orders</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"
               onclick="event.preventDefault();
@@ -35,14 +38,13 @@
           <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
         </li>
       @endif
-      <li class="nav-item {{ (\Request::path() == 'orders') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ url('orders') }}" >Orders</a>
-      </li>
     </ul>
-    <ul class="navbar-nav  ml-auto">
-      <li class=" nav-item {{ (\Request::path() == 'order-items') ? 'active' : '' }}">
-        <a class="btn btn-danger" href="{{ url('order-items') }}" ><span class="oi oi-cart"></span>My Cart</a>
-      </li>
-    </ul>
+    @if(Auth::user() && (Auth::user()->role == 'CUSTOMER') )
+      <ul class="navbar-nav  ml-auto">
+        <li class=" nav-item {{ (\Request::path() == 'order-items') ? 'active' : '' }}">
+          <a class="btn btn-danger" href="{{ url('order-items') }}" ><span class="oi oi-cart"></span>My Cart</a>
+        </li>
+      </ul>
+    @endif
   </div>
 </nav>
