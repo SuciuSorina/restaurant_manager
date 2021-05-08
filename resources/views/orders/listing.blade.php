@@ -28,7 +28,7 @@
 
     <div class=" pb-5 ml-2 row align-items-center ">
         {{-- <div class="col-md-5 row "> --}}
-            <div> 
+            <div>
                 <label > Filter orders </label> <br>
                 <div class="row">
                     <form method="get" class="d-flex" action="{{route('orders.index')}}">
@@ -53,6 +53,7 @@
             <th  class="text-center align-middle" >#</th>
             <th  class="text-center align-middle" >Customer Name</th>
             <th  class="text-center align-middle" >Delivery Hour</th>
+            <th  class="text-center align-middle" >Date</th>
             <th  class="text-center align-middle" >Delivery method</th>
             <th  class="text-center align-middle" >Status</th>
             <th  colspan="2" class="text-center align-middle" >Action</th>
@@ -60,10 +61,11 @@
         </thead>
         <tbody>
             @foreach($orders as $order)
-                <tr>
+                <tr @if($order->is_today==1) style="background: #69D1C5; " @endif>
                     <th  class="text-center align-middle">{{$order->id}}</th>
                     <td  class="text-center align-middle">{{$order->user->name}}</td>
                     <td  class="text-center align-middle">{{$order->hour}}</td>
+                    <td  class="text-center align-middle">{{date("d/m/Y",strtotime($order->created_at))}}</td>
                     <td  class="text-center align-middle">{{displayStatus($order->delivery_type)}}</td>
                     <td  class="text-center align-middle">
                         @if(Auth::user()->role == 'ADMIN' )

@@ -39,8 +39,27 @@ class OrderController extends Controller
         } else {
             $status = "ALL";
         }
+        $orders=$orders->orderBy("created_at","desc");
 
         $orders = $orders->get();
+
+        foreach ($orders as $order){
+            $order_create= date("Y-m-d",strtotime($order->created_at));
+            //dd($order_create);
+            $order_create_second= strtotime($order_create);
+            //dd($order_create_second);
+            $current_date= date("Y-m-d");
+            $current_date_second= strtotime($current_date);
+
+            if($order_create_second== $current_date_second){
+                $order->is_today=1;
+
+            }
+            else{
+                $order->is_today=0;
+            }
+        }
+        //dd($orders);
 
         return view('orders.listing')
                     ->withOrders($orders)
