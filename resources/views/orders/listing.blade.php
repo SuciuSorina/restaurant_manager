@@ -50,7 +50,6 @@
     <table class="table table-bordered pt-5">
         <thead>
           <tr>
-            <th  class="text-center align-middle" >#</th>
             <th  class="text-center align-middle" >Customer Name</th>
             <th  class="text-center align-middle" >Delivery Hour</th>
             <th  class="text-center align-middle" >Date</th>
@@ -62,7 +61,6 @@
         <tbody>
             @foreach($orders as $order)
                 <tr @if($order->is_today==1) style="background: #69D1C5; " @endif>
-                    <th  class="text-center align-middle">{{$order->id}}</th>
                     <td  class="text-center align-middle">{{$order->user->name}}</td>
                     <td  class="text-center align-middle">{{$order->hour}}</td>
                     <td  class="text-center align-middle">{{date("d/m/Y",strtotime($order->created_at))}}</td>

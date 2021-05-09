@@ -18,6 +18,8 @@
                     <label ><b> Customer Email: </b>{{$order->user->email}} </label></br>
                     <label ><b>Customer Address: </b>{{$order->user->adress}} </label></br>
                     <label ><b> Customer Phone: </b>{{$order->user->phone}} </label></br>
+                    <label ><b> Placed at: </b>{{date("d/m/Y",strtotime($order->created_at))}} </label></br>
+                    
 
                 </div>
                 <div class="form-group">
@@ -31,13 +33,13 @@
                         <tr>
                             <td>{{$part->product_name}}</td>
                             <td>{{$part->quantity}}</td>
-                            <td>{{$part->product_price}}</td>
-                            <td>{{$part->price}}</td>
+                            <td>{{$part->product_price}} &euro;</td>
+                            <td>{{$part->price}} &euro;</td>
                         </tr>
                         @endforeach
                         <tr>
                             <td colspan="4">
-                                Total Price: {{$order->total}} RON
+                                Total Price: {{$order->total}} &euro;
                             </td>
                         </tr>
                     </table>

@@ -19,8 +19,13 @@ Route::get('/', function () {
 
 Route::resource('categories', 'CategoryController');
 Route::resource('products', 'ProductController');
+Route::resource('coupons', 'CouponController');
 Route::resource('orders', 'OrderController');
+Route::resource('feedbacks', 'FeedbackController');
+Route::get('profiles', 'UserController@getProfile');
 Route::get('/order-items', 'OrderController@getOrderParts')->name('cart');
+Route::get('/check-code/{code}/{total}', 'OrderController@applyCoupon');
+
 Route::post('/add-order-items', 'OrderController@addOrderParts');
 Route::post('/remove-order-items', 'OrderController@removeOrderParts');
 

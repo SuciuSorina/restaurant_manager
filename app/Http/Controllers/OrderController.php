@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\OrderPart;
+use App\Coupon;
 use App\Product;
 use Illuminate\Http\Request;
 use Auth;
@@ -46,20 +47,20 @@ class OrderController extends Controller
         foreach ($orders as $order){
             $order_create= date("Y-m-d",strtotime($order->created_at));
             //dd($order_create);
-            $order_create_second= strtotime($order_create);
+            $order_create_seconds= strtotime($order_create);
             //dd($order_create_second);
             $current_date= date("Y-m-d");
-            $current_date_second= strtotime($current_date);
+            $current_date_seconds= strtotime($current_date);
 
-            if($order_create_second== $current_date_second){
-                $order->is_today=1;
+            if($order_create_seconds == $current_date_seconds){
+                $order->is_today = 1;
 
             }
             else{
-                $order->is_today=0;
+                $order->is_today = 0;
             }
         }
-        //dd($orders);
+        // dd($orders);
 
         return view('orders.listing')
                     ->withOrders($orders)
@@ -260,5 +261,15 @@ class OrderController extends Controller
 
         $order = Order::where('id', $id)->with('user')->with('orderParts')->first();
         return view('orders.show')->withOrder($order);
+    }
+
+    public function applyCoupon($code, $total) {
+        $coupon = Coupon::where('code', $code)->where("min_value_required", "<=", $total)->first();
+
+        if($coupon) {
+            return $coupon;
+        }
+
+        return 'fail';
     }
 }

@@ -96,7 +96,7 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
         $inputs= $request->all();
-        // dd($inputs['name']);
+
         $checkIfExist= $this->category->where('id','!=', $id)->where('name',$inputs['name'])->exists();
         
         if ($checkIfExist) {
@@ -105,9 +105,7 @@ class CategoryController extends Controller
 
         $category= $this->category->find($id);
 
-        // dd($category);
         $category->update($inputs);
-        // dd($inputs);/
 
         return redirect()->route('categories.index');
     }

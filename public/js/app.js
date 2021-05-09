@@ -65,3 +65,28 @@ function updateStatus(orderId) {
         window.location.replace("http://127.0.0.1:8000/orders");
     });
 }
+
+function useCoupon() {
+    $("#apply-coupon").show();
+    $("#use-coupon-button").attr("disabled", true);
+}
+
+function applyCoupon() {
+    var code = $("#coupon_code").val();
+    var total = $("#total").val();
+
+    $.get('/check-code/'+code + '/'+ total ,function (response) {
+        if (response == 'fail') {
+
+        //     window.location.replace("http://127.0.0.1:8000/order-items");
+            alert("Coupon was not applied!");
+        } else {
+            var diff = total - response.discount
+            $("#discount").show().text(" -" + response.discount + " €  = " + diff + " €");
+            $("#total").val(diff);
+            
+        //     $('#order-success').replaceWith(response);
+        }
+
+    });
+}

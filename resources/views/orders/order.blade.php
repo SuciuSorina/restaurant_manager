@@ -85,7 +85,7 @@
                             {{$part->quantity}}
                         </td>
                         <td  class="text-center align-middle"> 
-                            {{$part->price}} 
+                            {{$part->price}}  &euro;
                         </td>
                         <td  class="text-center align-middle">
                             <form method="post" action="/remove-order-items">
@@ -99,12 +99,25 @@
             </table>
             @if(count($order->orderParts))
                 <input type="hidden" id="total" value="{{$total}}">
-                <label> Total price: {{$total}} RON</label>
+                <div class="alert alert-info" role="alert">
+                    <h2>Total price: {{$total}} &euro;  <label id="discount" style="display:none"> </label>  </h2>
+                </div>
+                <div class="d-flex justify-content-center align-middle row col-md-12">
+                    <div class="col-md-3">
+                        <button type="button" id="use-coupon-button" class="btn btn-info" onclick="useCoupon();" >Use discount coupon</button>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="apply-coupon" class="mt-1" style="display:none;">
+                            <input id="coupon_code" type="text">
+                            <button type="button" class="btn btn-info" onclick="applyCoupon()">Apply</button>
+                        </div>
+                    </div>
+                </div>
             @endif
         </div>
     @else
-        <div>
-            <label> Nu exista produse in cos</label>
+        <div class="alert alert-danger" role="alert">
+            <h2>No products in cart!</h2>
         </div>
     @endif
 @endsection

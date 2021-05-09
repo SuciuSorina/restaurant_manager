@@ -5,15 +5,26 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item {{ (\Request::path() == 'products') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ url('products') }}">Products</a>
-      </li>
-      <li class="nav-item {{ (\Request::path() == 'categories') ? 'active' : '' }} ">
-        <a class="nav-link"  href="{{ url('categories') }}">Categories</a>
-      </li>
+      @if(Auth::user())
+        <li class="nav-item {{ (\Request::path() == 'products') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('products') }}">Products</a>
+        </li>
+        <li class="nav-item {{ (\Request::path() == 'categories') ? 'active' : '' }} ">
+          <a class="nav-link"  href="{{ url('categories') }}">Categories</a>
+        </li>
+        <li class="nav-item {{ (\Request::path() == 'coupons') ? 'active' : '' }} ">
+          <a class="nav-link"  href="{{ url('coupons') }}">Coupons</a>
+        </li>
+        <li class="nav-item {{ (\Request::path() == 'profiles') ? 'active' : '' }} ">
+          <a class="nav-link"  href="{{ url('profiles') }}">Profiles</a>
+        </li>
+      @endif
       @if(Auth::user() && Auth::user()->role == 'ADMIN' )
         <li class="nav-item {{ (\Request::path() == 'customers') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('customers') }}" >Customers</a>
+        </li>
+        <li class="nav-item {{ (\Request::path() == 'feedbacks') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('feedbacks') }}">Feedbacks</a>
         </li>
       @endif
       @if(Auth::user())

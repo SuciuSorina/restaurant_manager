@@ -155,7 +155,7 @@
                             <div class="card-body">
                             <h5 class="card-title">{{$product->name}}</h5>
                             <p class="card-text">{{$product->description}} </br>
-                            <b> Price: </b> {{$product->price}} RON</br>
+                            <b> Price: </b> {{$product->price}}   &euro;</br>
                             <b> Category: </b> {{$product->category->name}}</br>
                                 @if(Auth::user() && (Auth::user()->role == 'CUSTOMER') )
                                     <form action="/add-order-items" method="post" class="mr-2">
