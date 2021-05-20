@@ -14,7 +14,9 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        $feedbacks= Feedback::with('user')->get();
+
+        return view('feedbacks.listing')->withFeedbacks($feedbacks);
     }
 
     /**

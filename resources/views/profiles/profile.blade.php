@@ -15,6 +15,7 @@
                     <label class="form-control">Phone: {{$user->phone}}</label><br>
                 </div>
                 <div class="form-group">
+                    <a class="btn btn-info" href="/edit-profile/{{$user->id}}">Edit</a>
                 </div>
                 <div class="form-group">
                 </div>

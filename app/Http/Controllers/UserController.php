@@ -14,6 +14,11 @@ class UserController extends Controller
         $this->user = $user;
     }
 
+    public function show(Request $request)
+    {
+        return $request->user();        
+    }
+
     public function getCustomers() {
         $users = $this->user->where('role', 'CUSTOMER')->get();
         

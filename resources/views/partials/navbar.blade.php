@@ -23,9 +23,9 @@
         <li class="nav-item {{ (\Request::path() == 'customers') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('customers') }}" >Customers</a>
         </li>
-        <li class="nav-item {{ (\Request::path() == 'feedbacks') ? 'active' : '' }}">
+        {{-- <li class="nav-item {{ (\Request::path() == 'feedbacks') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('feedbacks') }}">Feedbacks</a>
-        </li>
+        </li> --}}
       @endif
       @if(Auth::user())
         <li class="nav-item {{ (\Request::path() == 'orders') ? 'active' : '' }}">

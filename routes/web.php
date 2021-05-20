@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'ProfileController@welcome');
 Route::resource('categories', 'CategoryController');
 Route::resource('products', 'ProductController');
 Route::resource('coupons', 'CouponController');
@@ -30,6 +30,9 @@ Route::post('/add-order-items', 'OrderController@addOrderParts');
 Route::post('/remove-order-items', 'OrderController@removeOrderParts');
 
 Route::post('/update-status', 'OrderController@updateOrderStatus');
+Route::get('/edit-profile/{id}', 'ProfileController@editUser');
+Route::post('/update-user', 'ProfileController@updateUser');
+
 
 Route::get('/customers', 'UserController@getCustomers');
 Route::get('/show-order/{id}', 'OrderController@showOrder');

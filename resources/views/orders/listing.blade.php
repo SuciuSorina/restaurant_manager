@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="row">
+    <div class="row" id="new_list">
         <div class="col">
 
         </div>

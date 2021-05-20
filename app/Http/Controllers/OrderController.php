@@ -243,7 +243,36 @@ class OrderController extends Controller
             $order = Order::find($inputs['order_id']);
             $order->status = $inputs['status'];
             $order->update();
-            return redirect()->route('orders.index');
+            $orders = $this->order->with('user')->where('status', '!=', 'DRAFT');
+            
+            // change logic because the last dont work anymore
+            $status = "ALL";
+            $orders=$orders->orderBy("created_at","desc");
+
+            $orders = $orders->get();
+
+            foreach ($orders as $order){
+                $order_create= date("Y-m-d",strtotime($order->created_at));
+                
+                $order_create_seconds= strtotime($order_create);
+                
+                $current_date= date("Y-m-d");
+                $current_date_seconds= strtotime($current_date);
+
+                if($order_create_seconds == $current_date_seconds){
+                    $order->is_today = 1;
+
+                }
+                else{
+                    $order->is_today = 0;
+                }
+
+            }
+            return view('orders.listing')
+                        ->withOrders($orders)
+                        ->withStatus($status);
+            // return redirect()->route('orders.index');
+
         }
 
     }

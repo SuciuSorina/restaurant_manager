@@ -62,7 +62,9 @@ function updateStatus(orderId) {
     }
     $.post('/update-status', data, function (response) {
         // window.location.replace(response);
-        window.location.replace("http://127.0.0.1:8000/orders");
+        // window.location.replace("http://127.0.0.1:8000/orders");
+        $('#new-list').replaceWith(response);
+        alert('Status has been updated');
     });
 }
 
