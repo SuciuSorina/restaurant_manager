@@ -84,6 +84,9 @@
             </tbody>
         </table>
     @else
+        <div class="row col-md-12 justify-content-center d-flex">
+            <h2>Choose desire category</h2>
+        </div>
         <div classs="row" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
             @foreach($categories as $category)
                 <div class="col-md-4 p-2">

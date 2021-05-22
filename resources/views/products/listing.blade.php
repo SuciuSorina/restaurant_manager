@@ -78,7 +78,7 @@
                         <th  class="text-center align-middle">{{$product->id}}</th>
                         <td  class="text-center align-middle">{{$product->name}}</td>
                         <td  class="text-center align-middle">{{$product->category->name}}</td>
-                        <td  class="text-center align-middle">{{$product->price}} RON</td>
+                        <td  class="text-center align-middle">{{$product->price}}  &euro;</td>
 
                         {{-- <td  class="text-center align-middle">
                             <form action="/add-order-items" method="post" class="mr-2">

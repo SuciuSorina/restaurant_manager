@@ -89,6 +89,17 @@ class FeedbackController extends Controller
      */
     public function destroy(Feedback $feedback)
     {
-        //
+        // 
+    }
+
+    public function deleteFeedback(Request $request) 
+    {
+        $inputs = $request->all();
+
+        $feedback = Feedback::find($inputs["feedback_id"]);
+
+        $feedback->delete();
+
+        return redirect()->route('feedbacks.index');
     }
 }

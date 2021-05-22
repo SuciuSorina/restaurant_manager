@@ -1,7 +1,11 @@
 @extends('app')
 
 @section('content')
+    <div  class="row col-md-12" id="display-success">
+                
+    </div>
     <div class="row" id="new_list">
+       
         <div class="col">
 
         </div>

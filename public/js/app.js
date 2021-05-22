@@ -64,7 +64,13 @@ function updateStatus(orderId) {
         // window.location.replace(response);
         // window.location.replace("http://127.0.0.1:8000/orders");
         $('#new-list').replaceWith(response);
-        alert('Status has been updated');
+        var displaySuccess = `<div class="col-md-12  text-center alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Order Updated! </strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>`
+        $('#display-success').append(displaySuccess)
     });
 }
 

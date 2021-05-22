@@ -2,7 +2,7 @@
 @section('content')
 
 
-    <div style="display: flex; justify-content: center;">
+    <div class="justify-content-center d-flex mb-5">
         <div class="col-md-2"></div>
         <div class="card col-md-8 text-center">
             <h1 style="font-size: xx-large; font-weight: inherit;" class="mb-3 pt-3"s>Order Details</h1>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group">
 
-                    <a href="{{route('orders.index')}}" style="color:white;" type="button" class="btn btn-warning">Back </a>
+                    <a href="{{route('orders.index')}}" style="color:white;" type="button" class="btn btn-primary">Back </a>
                 </div>
         </div>
     <div class="col-md-2"></div>

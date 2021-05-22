@@ -32,14 +32,14 @@
 
             <table class="table table-bordered">
                 <tr colspan="2">
-                    <td>
+                    <th class="text-center align-middle">
                         Delivery Method
-                    </td>
-                    <td>
+                    </th>
+                    <th class="text-center align-middle">
                         Hour
-                    </td>
-                    <td>
-                    </td>
+                    </th>
+                    <th>
+                    </th>
                 </tr>
                 <tr>
                     <td  class="text-center align-middle">
@@ -79,7 +79,7 @@
                             {{$part->product_name}} 
                         </td>
                         <td  class="text-center align-middle">
-                            {{$part->product_price}} 
+                            {{$part->product_price}}   &euro;
                         </td>
                         <td  class="text-center align-middle">
                             {{$part->quantity}}

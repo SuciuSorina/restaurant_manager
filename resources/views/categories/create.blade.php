@@ -23,7 +23,7 @@
                     <button type="submit" class="btn btn-success">
                         Create
                     </button>
-                    <a href="{{route('categories.index')}}" style="color:white;" type="button" class="btn btn-warning">Back </a>
+                    <a href="{{route('categories.index')}}" style="color:white;" type="button" class="btn btn-primary">Back </a>
                 </div>
             </form>
         </div>

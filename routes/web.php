@@ -33,6 +33,7 @@ Route::post('/update-status', 'OrderController@updateOrderStatus');
 Route::get('/edit-profile/{id}', 'ProfileController@editUser');
 Route::post('/update-user', 'ProfileController@updateUser');
 
+Route::post('/delete-feedback', 'FeedbackController@deleteFeedback');
 
 Route::get('/customers', 'UserController@getCustomers');
 Route::get('/show-order/{id}', 'OrderController@showOrder');

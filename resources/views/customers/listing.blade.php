@@ -5,15 +5,15 @@
 
     <table class="table table-bordered">
         <tr >
-            <td class="text-center align-middle">
+            <th class="text-center align-middle">
                 Name
-            </td>
-            <td class="text-center align-middle">
+            </th>
+            <th class="text-center align-middle">
                 Email
-            </td>
-            <td class="text-center align-middle">
+            </th>
+            <th class="text-center align-middle">
                 Phone
-            </td>
+            </th>
         </tr>
         <tbody>
             @foreach($users as $user)
